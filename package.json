@@ -1,0 +1,29 @@
+{
+  "name": "vandine-network-monitor",
+  "version": "1.0.0",
+  "description": "Network Engineering Lab - Production infrastructure showcase",
+  "main": "vandine-showcase.html",
+  "scripts": {
+    "test": "./test.sh",
+    "build": "echo 'No build required for static site'",
+    "deploy:dev": "echo 'Deploy to dev environment'",
+    "deploy:staging": "echo 'Deploy to staging environment'",
+    "deploy:prod": "echo 'Deploy to production environment'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jag18729/vandine-network-monitor.git"
+  },
+  "keywords": [
+    "network",
+    "monitoring",
+    "cloudflare",
+    "infrastructure"
+  ],
+  "author": "Rafael J Garcia",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jag18729/vandine-network-monitor/issues"
+  },
+  "homepage": "https://github.com/jag18729/vandine-network-monitor#readme"
+}
