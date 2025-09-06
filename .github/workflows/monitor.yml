@@ -1,0 +1,44 @@
+name: Network Monitor Health Check
+
+on:
+  schedule:
+    # Run every hour
+    - cron: '0 * * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  health-check:
+    name: Check Infrastructure Health
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check website availability
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" https://rafael.vandine.us)
+          if [ $response -eq 200 ]; then
+            echo "✅ Website is up (HTTP $response)"
+          else
+            echo "❌ Website is down (HTTP $response)"
+            exit 1
+          fi
+      
+      - name: Test Cloudflare Edge
+        run: |
+          echo "Testing Cloudflare edge location"
+          curl -s https://www.cloudflare.com/cdn-cgi/trace | grep -E "colo=|loc="
+      
+      - name: Performance check
+        run: |
+          echo "Checking response time"
+          time curl -s https://rafael.vandine.us > /dev/null
+      
+      - name: SSL certificate check
+        run: |
+          echo "Checking SSL certificate"
+          openssl s_client -connect rafael.vandine.us:443 -servername rafael.vandine.us < /dev/null 2>/dev/null | openssl x509 -noout -dates
+      
+      - name: Create status badge
+        if: always()
+        run: |
+          echo "Status: ${{ job.status }}"
+          # Update README badge or status page

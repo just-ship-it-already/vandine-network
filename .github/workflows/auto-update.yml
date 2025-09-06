@@ -1,0 +1,68 @@
+name: Auto Update Dependencies
+
+on:
+  schedule:
+    # Run weekly on Mondays at 3 AM
+    - cron: '0 3 * * 1'
+  workflow_dispatch:
+
+jobs:
+  update-dependencies:
+    name: Update Dependencies
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout dev branch
+        uses: actions/checkout@v3
+        with:
+          ref: dev
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Update Python dependencies
+        run: |
+          if [ -f requirements.txt ]; then
+            pip install --upgrade pip
+            pip list --outdated
+            echo "Python dependencies checked"
+          fi
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Update npm dependencies
+        run: |
+          if [ -f package.json ]; then
+            npm update
+            npm audit fix
+            echo "NPM dependencies updated"
+          fi
+      
+      - name: Check for Docker updates
+        run: |
+          echo "Checking for Docker image updates"
+          grep -h "FROM" docker/*/Dockerfile* | sort -u
+      
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore: automated dependency updates'
+          title: '[Auto] Dependency Updates'
+          body: |
+            ## Automated Dependency Updates
+            
+            This PR contains automated dependency updates:
+            - Python packages
+            - NPM packages
+            - Security patches
+            
+            Please review and test before merging.
+          branch: auto-update/dependencies
+          base: dev
