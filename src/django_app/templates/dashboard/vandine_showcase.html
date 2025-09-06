@@ -1,0 +1,434 @@
+{% extends 'base.html' %}
+
+{% block title %}Vandine Network Infrastructure - SOHO Network Monitor{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <h1>Vandine Network Infrastructure</h1>
+    <p class="subtitle">Enterprise-Grade SOHO Network with Cloudflare Security</p>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-value">99.9%</div>
+        <div class="stat-label">Network Uptime</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">< 1ms</div>
+        <div class="stat-label">Local Latency</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">3</div>
+        <div class="stat-label">Active Nodes</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">SSL/TLS</div>
+        <div class="stat-label">Cloudflare Secured</div>
+    </div>
+</div>
+
+<section class="infrastructure">
+    <h2>🏗️ Network Architecture</h2>
+    
+    <div class="network-diagram">
+        <div class="network-layer">
+            <h3>🌐 Edge Security - Cloudflare</h3>
+            <div class="features">
+                <span class="feature">DDoS Protection</span>
+                <span class="feature">SSL/TLS Encryption</span>
+                <span class="feature">Zero Trust Access</span>
+                <span class="feature">WAF Rules</span>
+                <span class="feature">Bot Management</span>
+            </div>
+        </div>
+        
+        <div class="network-layer">
+            <h3>🔒 Gateway - Synology RT2600ac</h3>
+            <div class="features">
+                <span class="feature">Dual-WAN Failover</span>
+                <span class="feature">VLAN Segmentation</span>
+                <span class="feature">IDS/IPS</span>
+                <span class="feature">QoS Traffic Shaping</span>
+            </div>
+        </div>
+        
+        <div class="network-layer">
+            <h3>💻 Compute Infrastructure</h3>
+            <div class="device-grid">
+                <div class="device">
+                    <h4>Pi0 - Ubuntu Server</h4>
+                    <p>192.168.2.10</p>
+                    <div class="device-stats">
+                        <span>4 Core ARM</span>
+                        <span>8GB RAM</span>
+                        <span>Services Hub</span>
+                    </div>
+                </div>
+                <div class="device">
+                    <h4>Pi1 - Web Server</h4>
+                    <p>192.168.2.7</p>
+                    <div class="device-stats">
+                        <span>4 Core ARM</span>
+                        <span>8GB RAM</span>
+                        <span>HTTPS Host</span>
+                    </div>
+                </div>
+                <div class="device">
+                    <h4>XPS - Development</h4>
+                    <p>192.168.2.x</p>
+                    <div class="device-stats">
+                        <span>WSL2 Ubuntu</span>
+                        <span>16GB RAM</span>
+                        <span>Dev Environment</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="security-features">
+    <h2>🛡️ Security Features</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <h3>Cloudflare Tunnel</h3>
+            <p>Secure zero-trust access without exposing ports. All traffic encrypted end-to-end.</p>
+            <div class="metric">Tunnel ID: 153cc7a6-9ab5-4172-b4cc-eb21e5b524cd</div>
+        </div>
+        <div class="feature-card">
+            <h3>SSL/TLS Certificates</h3>
+            <p>Full SSL/TLS encryption with Cloudflare origin certificates.</p>
+            <div class="metric">Encryption: TLS 1.3</div>
+        </div>
+        <div class="feature-card">
+            <h3>Network Isolation</h3>
+            <p>VLAN segmentation and firewall rules for complete network isolation.</p>
+            <div class="metric">Isolated Networks: 3</div>
+        </div>
+        <div class="feature-card">
+            <h3>Monitoring & Alerts</h3>
+            <p>24/7 network monitoring with real-time alerts and performance metrics.</p>
+            <div class="metric">Response Time: < 5s</div>
+        </div>
+    </div>
+</section>
+
+<section class="performance">
+    <h2>⚡ Network Performance</h2>
+    <div class="performance-grid">
+        <div class="perf-metric">
+            <h3>Bandwidth</h3>
+            <canvas id="bandwidth-chart"></canvas>
+        </div>
+        <div class="perf-metric">
+            <h3>Latency</h3>
+            <canvas id="latency-chart"></canvas>
+        </div>
+        <div class="perf-metric">
+            <h3>Packet Loss</h3>
+            <div class="big-metric">0.00%</div>
+        </div>
+    </div>
+</section>
+
+<section class="tech-stack">
+    <h2>🔧 Technology Stack</h2>
+    <div class="tech-grid">
+        <div class="tech-category">
+            <h3>Infrastructure</h3>
+            <ul>
+                <li>Raspberry Pi 4B (ARM64)</li>
+                <li>Ubuntu Server 24.04 LTS</li>
+                <li>Docker & Docker Compose</li>
+                <li>Nginx Reverse Proxy</li>
+            </ul>
+        </div>
+        <div class="tech-category">
+            <h3>Security</h3>
+            <ul>
+                <li>Cloudflare Zero Trust</li>
+                <li>Cloudflare Tunnel</li>
+                <li>SSL/TLS Certificates</li>
+                <li>UFW Firewall</li>
+            </ul>
+        </div>
+        <div class="tech-category">
+            <h3>Monitoring</h3>
+            <ul>
+                <li>Custom Python Monitoring</li>
+                <li>Django Dashboard</li>
+                <li>Real-time WebSockets</li>
+                <li>Prometheus Ready</li>
+            </ul>
+        </div>
+        <div class="tech-category">
+            <h3>DevOps</h3>
+            <ul>
+                <li>Git Version Control</li>
+                <li>GitHub Actions CI/CD</li>
+                <li>Automated Deployments</li>
+                <li>Infrastructure as Code</li>
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.hero-section {
+    text-align: center;
+    padding: 3rem 0;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: white;
+    margin: -2rem -2rem 2rem -2rem;
+}
+
+.hero-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #94a3b8;
+    font-size: 1.2rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #0ea5e9;
+}
+
+.stat-label {
+    color: #64748b;
+    margin-top: 0.5rem;
+}
+
+.network-diagram {
+    background: #f8fafc;
+    padding: 2rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+}
+
+.network-layer {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.network-layer h3 {
+    color: #0f172a;
+    margin-bottom: 1rem;
+}
+
+.features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.feature {
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+.device-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.device {
+    background: #f1f5f9;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 2px solid #e2e8f0;
+}
+
+.device h4 {
+    margin: 0 0 0.5rem 0;
+    color: #0f172a;
+}
+
+.device p {
+    color: #64748b;
+    margin: 0 0 0.5rem 0;
+    font-family: monospace;
+}
+
+.device-stats {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+}
+
+.device-stats span {
+    background: #e2e8f0;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.feature-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.feature-card h3 {
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+    color: #64748b;
+    margin-bottom: 1rem;
+}
+
+.metric {
+    background: #f1f5f9;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.875rem;
+    color: #0369a1;
+}
+
+.performance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.perf-metric {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.big-metric {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #10b981;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.tech-category {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.tech-category h3 {
+    color: #0f172a;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+}
+
+.tech-category ul {
+    list-style: none;
+    padding: 0;
+}
+
+.tech-category li {
+    padding: 0.5rem 0;
+    color: #475569;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.tech-category li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #10b981;
+    font-weight: bold;
+}
+
+section {
+    margin-bottom: 3rem;
+}
+
+section h2 {
+    color: #0f172a;
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Simulated bandwidth chart
+const bwCtx = document.getElementById('bandwidth-chart').getContext('2d');
+const bwGradient = bwCtx.createLinearGradient(0, 0, 0, 200);
+bwGradient.addColorStop(0, 'rgba(14, 165, 233, 0.5)');
+bwGradient.addColorStop(1, 'rgba(14, 165, 233, 0.1)');
+
+// Draw simple bandwidth visualization
+bwCtx.fillStyle = bwGradient;
+bwCtx.fillRect(0, 100, 30, 50);
+bwCtx.fillRect(40, 80, 30, 70);
+bwCtx.fillRect(80, 60, 30, 90);
+bwCtx.fillRect(120, 70, 30, 80);
+bwCtx.fillRect(160, 50, 30, 100);
+bwCtx.fillRect(200, 65, 30, 85);
+bwCtx.fillRect(240, 75, 30, 75);
+
+// Simulated latency chart
+const latCtx = document.getElementById('latency-chart').getContext('2d');
+latCtx.strokeStyle = '#10b981';
+latCtx.lineWidth = 2;
+latCtx.beginPath();
+latCtx.moveTo(0, 100);
+latCtx.lineTo(50, 95);
+latCtx.lineTo(100, 98);
+latCtx.lineTo(150, 94);
+latCtx.lineTo(200, 96);
+latCtx.lineTo(250, 93);
+latCtx.lineTo(300, 95);
+latCtx.stroke();
+</script>
+{% endblock %}

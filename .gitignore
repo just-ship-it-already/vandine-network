@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Environment files
+.env
+.env.local
+.env.pi
+
+# Docker
+docker-compose.override.yml
+
+# Logs
+*.log
+logs/
+*.pid
+
+# Backups
+*.backup
+*.backup-*
+*.bak
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Monitoring data
+monitoring/data/
+prometheus_data/
+grafana_data/
+
+# Test files
+test-*.html
+*-test.html
+
+# Temporary files
+*.tmp
+/tmp/

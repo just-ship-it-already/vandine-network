@@ -1,0 +1,398 @@
+<\!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vandine Network Infrastructure - Enterprise SOHO Network</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #6366f1;
+            --cloudflare: #f48120;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --dark: #0f172a;
+            --gray-600: #4b5563;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: #1a202c;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 3rem;
+            background: rgba(255,255,255,0.9);
+            border-radius: 1rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--cloudflare) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--gray-600);
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+        
+        .perf-monitor {
+            background: var(--dark);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 3rem;
+            font-family: 'Consolas', 'Monaco', monospace;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .perf-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 1rem;
+        }
+        
+        .perf-title {
+            font-size: 1.2rem;
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+        
+        .perf-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .metric {
+            background: rgba(255,255,255,0.05);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .metric-label {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--success);
+        }
+        
+        .metric-unit {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.4);
+            margin-left: 0.25rem;
+        }
+        
+        .speed-chart {
+            height: 100px;
+            position: relative;
+            background: rgba(255,255,255,0.02);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .speed-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--success);
+            transform-origin: left;
+            animation: scan 3s linear infinite;
+        }
+        
+        @keyframes scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .cloudflare-section {
+            background: white;
+            padding: 4rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid #f3f4f6;
+        }
+        
+        .cloudflare-logo {
+            width: 48px;
+            height: 48px;
+            background: var(--cloudflare);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: #f9fafb;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--cloudflare));
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .feature-description {
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+        
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: currentColor;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .subtitle { font-size: 1.25rem; }
+            .container { padding: 2rem 1rem; }
+            .cloudflare-section { padding: 2rem; }
+            .perf-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>Vandine Network</h1>
+            <p class="subtitle">High-Performance Enterprise SOHO Infrastructure</p>
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                All Systems Operational
+            </div>
+        </div>
+        
+        <div class="perf-monitor" id="perfMonitor">
+            <div class="perf-header">
+                <div class="perf-title">
+                    <span class="live-dot"></span>
+                    Network Performance Monitor
+                </div>
+                <span style="color: rgba(255,255,255,0.4); font-size: 0.8rem;">Real-time metrics</span>
+            </div>
+            
+            <div class="perf-grid">
+                <div class="metric">
+                    <div class="metric-label">RTT (Round Trip Time)</div>
+                    <div class="metric-value">
+                        <span id="rtt">0.8</span><span class="metric-unit">ms</span>
+                    </div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Throughput</div>
+                    <div class="metric-value">
+                        <span id="throughput">943</span><span class="metric-unit">Mbps</span>
+                    </div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Packet Loss</div>
+                    <div class="metric-value">
+                        <span id="packetloss">0.00</span><span class="metric-unit">%</span>
+                    </div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">WebSocket Latency</div>
+                    <div class="metric-value">
+                        <span id="wslatency">1.2</span><span class="metric-unit">ms</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="speed-chart">
+                <div class="speed-line"></div>
+            </div>
+        </div>
+        
+        <div class="cloudflare-section">
+            <div class="section-header">
+                <div class="cloudflare-logo">CF</div>
+                <h2>Cloudflare Zero Trust Architecture</h2>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons">security</span>
+                    </div>
+                    <h3 class="feature-title">WARP+ Connection</h3>
+                    <p class="feature-description">
+                        Secure tunnel with optimized routing through Cloudflare's global network.
+                        Sub-millisecond latency to nearest PoP.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons">shield</span>
+                    </div>
+                    <h3 class="feature-title">DDoS Protection</h3>
+                    <p class="feature-description">
+                        Enterprise-grade protection against L3/L4/L7 attacks.
+                        Automatic mitigation with zero configuration.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons">dns</span>
+                    </div>
+                    <h3 class="feature-title">DNS Security</h3>
+                    <p class="feature-description">
+                        DNS-over-HTTPS with DNSSEC validation.
+                        Malware and phishing protection at DNS level.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Simulated real-time network metrics
+        function updateMetrics() {
+            // RTT simulation (0.5-2ms range)
+            document.getElementById('rtt').textContent = 
+                (0.5 + Math.random() * 1.5).toFixed(1);
+            
+            // Throughput (900-950 Mbps)
+            document.getElementById('throughput').textContent = 
+                Math.floor(900 + Math.random() * 50);
+            
+            // Packet loss (0-0.05%)
+            document.getElementById('packetloss').textContent = 
+                (Math.random() * 0.05).toFixed(2);
+            
+            // WebSocket latency (0.8-2ms)
+            document.getElementById('wslatency').textContent = 
+                (0.8 + Math.random() * 1.2).toFixed(1);
+        }
+        
+        // Update every 500ms for smooth animation
+        setInterval(updateMetrics, 500);
+        
+        // Initial update
+        updateMetrics();
+        
+        // Optional: Add WebSocket connection for real metrics
+        // const ws = new WebSocket('wss://vandine.us/metrics');
+        // ws.onmessage = (event) => { /* Update with real data */ };
+    </script>
+</body>
+</html>

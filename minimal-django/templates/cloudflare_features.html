@@ -1,0 +1,266 @@
+<section id="cloudflare-shield">
+    <div class="section-header" data-aos="fade-up">
+        <h2 class="section-title">🛡️ Cloudflare Enterprise Security</h2>
+        <p class="section-subtitle">Advanced protection powered by Cloudflare's global network</p>
+    </div>
+    
+    <div class="cloudflare-stats">
+        <div class="cf-stat" data-aos="zoom-in" data-aos-delay="100">
+            <div class="cf-icon">
+                <span class="material-icons">shield</span>
+            </div>
+            <h3>Unmetered DDoS</h3>
+            <p>Application Layer Protection</p>
+            <div class="cf-badge">Always On</div>
+        </div>
+        
+        <div class="cf-stat" data-aos="zoom-in" data-aos-delay="200">
+            <div class="cf-icon">
+                <span class="material-icons">speed</span>
+            </div>
+            <h3>70+ Rules</h3>
+            <p>Cloudflare Rules Active</p>
+            <div class="cf-badge">Configured</div>
+        </div>
+        
+        <div class="cf-stat" data-aos="zoom-in" data-aos-delay="300">
+            <div class="cf-icon">
+                <span class="material-icons">security</span>
+            </div>
+            <h3>5 WAF Rules</h3>
+            <p>Web Application Firewall</p>
+            <div class="cf-badge">Active</div>
+        </div>
+        
+        <div class="cf-stat" data-aos="zoom-in" data-aos-delay="400">
+            <div class="cf-icon">
+                <span class="material-icons">language</span>
+            </div>
+            <h3>Global CDN</h3>
+            <p>285+ Cities Worldwide</p>
+            <div class="cf-badge">Enabled</div>
+        </div>
+    </div>
+    
+    <div class="protection-features">
+        <div class="protection-card" data-aos="fade-up" data-aos-delay="100">
+            <h3>🚫 DDoS Protection</h3>
+            <ul>
+                <li>✓ Unmetered Application Layer DDoS Protection</li>
+                <li>✓ Network Layer (L3/L4) Protection</li>
+                <li>✓ Advanced TCP Protection</li>
+                <li>✓ Zero Configuration Required</li>
+            </ul>
+        </div>
+        
+        <div class="protection-card" data-aos="fade-up" data-aos-delay="200">
+            <h3>🔐 Security Features</h3>
+            <ul>
+                <li>✓ IP-based Rate Limiting Active</li>
+                <li>✓ WAF Protection Against OWASP Top 10</li>
+                <li>✓ Bot Detection & Challenge System</li>
+                <li>✓ Universal SSL Certificate</li>
+            </ul>
+        </div>
+        
+        <div class="protection-card" data-aos="fade-up" data-aos-delay="300">
+            <h3>⚡ Performance</h3>
+            <ul>
+                <li>✓ Global Anycast Network</li>
+                <li>✓ Smart Routing & Load Balancing</li>
+                <li>✓ Fast DNS Resolution</li>
+                <li>✓ HTTP/3 & QUIC Support</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section id="pi-infrastructure">
+    <div class="section-header" data-aos="fade-up">
+        <h2 class="section-title">🖥️ Raspberry Pi Infrastructure</h2>
+        <p class="section-subtitle">Professional tools and services running on ARM</p>
+    </div>
+    
+    <div class="pi-tools-grid">
+        <div class="tool-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="tool-icon docker">🐳</div>
+            <h3>Docker & Compose</h3>
+            <p>Containerized services with orchestration</p>
+            <code>docker compose up -d</code>
+        </div>
+        
+        <div class="tool-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="tool-icon nginx">⚡</div>
+            <h3>Nginx Reverse Proxy</h3>
+            <p>High-performance web server and proxy</p>
+            <code>nginx -t && systemctl reload nginx</code>
+        </div>
+        
+        <div class="tool-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="tool-icon python">🐍</div>
+            <h3>Python Stack</h3>
+            <p>Django, FastAPI, Gunicorn, Celery</p>
+            <code>gunicorn wsgi:application</code>
+        </div>
+        
+        <div class="tool-card" data-aos="fade-up" data-aos-delay="400">
+            <div class="tool-icon git">📦</div>
+            <h3>Git & GitHub</h3>
+            <p>Version control with CI/CD pipelines</p>
+            <code>git push origin main</code>
+        </div>
+        
+        <div class="tool-card" data-aos="fade-up" data-aos-delay="500">
+            <div class="tool-icon monitoring">📊</div>
+            <h3>Monitoring Stack</h3>
+            <p>Custom metrics, alerts, and dashboards</p>
+            <code>prometheus + grafana</code>
+        </div>
+        
+        <div class="tool-card" data-aos="fade-up" data-aos-delay="600">
+            <div class="tool-icon security">🔒</div>
+            <h3>Security Tools</h3>
+            <p>UFW, Fail2ban, SSH hardening</p>
+            <code>ufw status verbose</code>
+        </div>
+    </div>
+</section>
+
+<style>
+.cloudflare-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.cf-stat {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.3s;
+}
+
+.cf-stat:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+}
+
+.cf-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1rem;
+    background: linear-gradient(135deg, #f48120, #faae40);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+}
+
+.cf-stat h3 {
+    font-size: 1.5rem;
+    color: var(--gray-900);
+    margin-bottom: 0.5rem;
+}
+
+.cf-stat p {
+    color: var(--gray-600);
+    margin-bottom: 1rem;
+}
+
+.cf-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #10b981;
+    color: white;
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.protection-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.protection-card {
+    padding: 2rem;
+    background: linear-gradient(135deg, #f8fafc, white);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--gray-200);
+}
+
+.protection-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--gray-900);
+}
+
+.protection-card ul {
+    list-style: none;
+}
+
+.protection-card li {
+    padding: 0.75rem 0;
+    color: var(--gray-700);
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.protection-card li:last-child {
+    border-bottom: none;
+}
+
+.pi-tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.tool-card {
+    padding: 2rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.tool-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+}
+
+.tool-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.tool-card h3 {
+    font-size: 1.25rem;
+    color: var(--gray-900);
+    margin-bottom: 0.5rem;
+}
+
+.tool-card p {
+    color: var(--gray-600);
+    margin-bottom: 1rem;
+}
+
+.tool-card code {
+    display: block;
+    padding: 0.75rem;
+    background: var(--gray-100);
+    border-radius: 0.5rem;
+    font-family: monospace;
+    font-size: 0.875rem;
+    color: var(--primary);
+}
+</style>

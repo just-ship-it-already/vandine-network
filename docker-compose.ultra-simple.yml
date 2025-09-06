@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  web:
+    image: python:3.11-slim
+    container_name: vandine_web
+    working_dir: /app
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src/django_app:/app
+    environment:
+      - DEBUG=True
+      - SECRET_KEY=dev-secret-key-change-in-production
+      - ALLOWED_HOSTS=*
+    command: >
+      sh -c "apt-get update && apt-get install -y libpq-dev gcc &&
+             pip install django whitenoise &&
+             python manage.py migrate --run-syncdb &&
+             python manage.py runserver 0.0.0.0:8000"
+    restart: unless-stopped

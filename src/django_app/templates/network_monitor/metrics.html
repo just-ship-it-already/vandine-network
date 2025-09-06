@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}System Metrics - Vandine Monitor{% endblock %}
+
+{% block content %}
+<h2>System Metrics</h2>
+
+<div class="metrics-grid">
+    {% for item in metrics_data %}
+    <div class="card">
+        <h3>{{ item.device.name }} - {{ item.device.ip_address }}</h3>
+        <div class="metrics-container">
+            <div class="metric">
+                <div class="metric-value">{{ item.metric.cpu_percent|floatformat:1 }}%</div>
+                <div class="metric-label">CPU Usage</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">{{ item.metric.memory_percent|floatformat:1 }}%</div>
+                <div class="metric-label">Memory Usage</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">{{ item.metric.disk_percent|floatformat:1 }}%</div>
+                <div class="metric-label">Disk Usage</div>
+            </div>
+            {% if item.metric.temperature %}
+            <div class="metric">
+                <div class="metric-value">{{ item.metric.temperature|floatformat:1 }}°C</div>
+                <div class="metric-label">Temperature</div>
+            </div>
+            {% endif %}
+        </div>
+        <div class="metric-timestamp">
+            Last updated: {{ item.metric.timestamp|date:"Y-m-d H:i:s" }}
+        </div>
+    </div>
+    {% empty %}
+    <div class="card">
+        <p>No metrics data available</p>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="card">
+    <h3>Historical Trends</h3>
+    <div id="metrics-chart">
+        <p>Loading chart...</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Auto-refresh metrics every 5 seconds
+setInterval(function() {
+    location.reload();
+}, 5000);
+</script>
+{% endblock %}

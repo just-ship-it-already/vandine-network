@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Network Devices - Vandine Monitor{% endblock %}
+
+{% block content %}
+<h2>Network Devices</h2>
+
+<div class="card">
+    <h3>Active Devices</h3>
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>IP Address</th>
+                    <th>MAC Address</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Last Seen</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for device in devices %}
+                <tr>
+                    <td>{{ device.name }}</td>
+                    <td>{{ device.ip_address }}</td>
+                    <td>{{ device.mac_address|default:"-" }}</td>
+                    <td>{{ device.device_type }}</td>
+                    <td>
+                        <span class="status {% if device.is_online %}status-online{% else %}status-offline{% endif %}">
+                            {% if device.is_online %}Online{% else %}Offline{% endif %}
+                        </span>
+                    </td>
+                    <td>{{ device.last_seen|date:"Y-m-d H:i:s" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center">No devices found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Device Details</h3>
+    <div id="device-details">
+        <p>Select a device to view details</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Auto-refresh device status every 10 seconds
+setInterval(function() {
+    location.reload();
+}, 10000);
+</script>
+{% endblock %}

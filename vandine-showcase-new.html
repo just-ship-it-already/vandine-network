@@ -1,0 +1,409 @@
+<\!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vandine Network - Infrastructure & Performance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #6366f1;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --gray: #4b5563;
+            --white: #ffffff;
+            --raspberry: #c51a4a;
+            --cyber: #00ff88;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        .hero {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 1rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--cyber) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 1rem;
+        }
+        
+        .view-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            margin: 0 auto 1.5rem;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 0.5rem;
+            padding: 0.25rem;
+            max-width: 400px;
+        }
+        
+        .view-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.6);
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .view-btn.active {
+            background: var(--cyber);
+            color: var(--dark);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+        
+        .view {
+            display: none;
+        }
+        
+        .view.active {
+            display: block;
+        }
+        
+        /* Performance View Styles */
+        .pi-info {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            padding: 1rem;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+        
+        .pi-stat {
+            text-align: center;
+        }
+        
+        .pi-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--cyber);
+        }
+        
+        .toggle-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .toggle-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.8);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.8rem;
+        }
+        
+        .toggle-btn:hover {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: var(--cyber);
+            color: var(--cyber);
+        }
+        
+        .toggle-btn.active {
+            background: rgba(0, 255, 136, 0.2);
+            border-color: var(--cyber);
+            color: var(--cyber);
+        }
+        
+        .perf-monitor {
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+            font-family: monospace;
+        }
+        
+        .test-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .test-btn {
+            background: var(--cyber);
+            color: var(--dark);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+        }
+        
+        .test-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.5);
+        }
+        
+        .test-btn:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+        }
+        
+        .nerd-info {
+            display: none;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            font-family: monospace;
+            color: var(--cyber);
+        }
+        
+        .nerd-info.show {
+            display: block;
+        }
+        
+        .comparison-table {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+        
+        th, td {
+            text-align: left;
+            padding: 0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .metric-good {
+            color: var(--cyber);
+            font-weight: 600;
+        }
+        
+        /* Services View Styles */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-category {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+        
+        .category-header {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--cyber);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .service-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 0.25rem;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        
+        .service-item:hover {
+            background: rgba(0, 255, 136, 0.1);
+        }
+        
+        .service-name {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .status-light {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        
+        .status-online {
+            background: var(--cyber);
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
+            animation: pulse 2s infinite;
+        }
+        
+        .status-offline {
+            background: var(--gray);
+        }
+        
+        .port-badge {
+            font-size: 0.75rem;
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary);
+            padding: 0.1rem 0.4rem;
+            border-radius: 0.25rem;
+        }
+        
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .summary-card {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+        
+        .summary-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--cyber);
+        }
+        
+        .summary-label {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+        }
+        
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0,255,136,0.1);
+            color: var(--cyber);
+            padding: 0.3rem 0.8rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+        }
+        
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--cyber);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .services-grid { grid-template-columns: 1fr; }
+            .test-buttons { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>Vandine Network</h1>
+            <p class="subtitle">High-Performance Infrastructure on Raspberry Pi</p>
+            <div class="status-badge">
+                <span class="live-dot"></span>
+                All Systems Operational
+            </div>
+        </div>
+        
+        <div class="view-toggle">
+            <button class="view-btn active" onclick="switchView('performance')">🚀 Performance</button>
+            <button class="view-btn" onclick="switchView('services')">🔧 Services</button>
+        </div>
+        
+        <\!-- Performance View -->
+        <div id="performance-view" class="view active">
+            <div class="pi-info">
+                <div class="pi-stat">
+                    <div style="font-size:0.7rem;color:rgba(255,255,255,0.6);">MODEL</div>
+                    <div class="pi-value">Pi 4B</div>
+                </div>
+                <div class="pi-stat">
+                    <div style="font-size:0.7rem;color:rgba(255,255,255,0.6);">TEMP</div>
+                    <div class="pi-value" id="piTemp">42°C</div>
+                </div>
+                <div class="pi-stat">
+                    <div style="font-size:0.7rem;color:rgba(255,255,255,0.6);">RAM</div>
+                    <div class="pi-value">2.1/4GB</div>
+                </div>
+                <div class="pi-stat">
+                    <div style="font-size:0.7rem;color:rgba(255,255,255,0.6);">CPU</div>
+                    <div class="pi-value" id="cpuUsage">12%</div>
+                </div>
+                <div class="pi-stat">
+                    <div style="font-size:0.7rem;color:rgba(255,255,255,0.6);">UPTIME</div>
+                    <div class="pi-value">9d 14h</div>
+                </div>
+            </div>
+            
+            <div class="toggle-controls">
+                <button class="toggle-btn" onclick="toggleInfo('network')" id="networkToggle">🌐 Network Facts</button>
+                <button class="toggle-btn" onclick="toggleInfo('security')" id="securityToggle">🔒 Security Details</button>
+                <button class="toggle-btn" onclick="toggleInfo('system')" id="systemToggle">⚙️ System Capabilities</button>
+            </div>
+            

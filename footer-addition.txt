@@ -1,0 +1,41 @@
+        </div>
+        <footer style="margin-top:3rem;padding:2rem 1rem 1rem;border-top:1px solid rgba(255,255,255,0.1);text-align:center;">
+            <div style="margin-bottom:1rem;">
+                <a href="https://github.com/vandine" target="_blank" style="color:rgba(255,255,255,0.5);text-decoration:none;margin:0 1rem;transition:color 0.3s;" class="footer-link">
+                    <span style="font-size:1.2rem;">⚡</span> Projects
+                </a>
+                <a href="mailto:admin@vandine.us" style="color:rgba(255,255,255,0.5);text-decoration:none;margin:0 1rem;transition:color 0.3s;" class="footer-link">
+                    <span style="font-size:1.2rem;">📧</span> Contact
+                </a>
+                <a href="/status" style="color:rgba(255,255,255,0.5);text-decoration:none;margin:0 1rem;transition:color 0.3s;" class="footer-link">
+                    <span style="font-size:1.2rem;">📊</span> Status
+                </a>
+            </div>
+            <div style="font-size:0.75rem;color:rgba(255,255,255,0.3);margin-top:1rem;">
+                <div>Powered by Raspberry Pi 4 • Cloudflare Zero Trust • Open Source</div>
+                <div style="margin-top:0.5rem;">© 2025 Vandine Network • Built with <span style="color:var(--raspberry);">❤</span> in California</div>
+            </div>
+        </footer>
+    </div>
+    
+    <style>
+        .footer-link:hover {
+            color: var(--cyber) \!important;
+        }
+    </style>
+    
+    <script>
+        // Add live time display
+        function updateTime() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-US', { 
+                timeZone: 'America/Los_Angeles',
+                hour12: false 
+            });
+            const timeEl = document.getElementById('localTime');
+            if (timeEl) {
+                timeEl.textContent = timeStr + ' PST';
+            }
+        }
+        setInterval(updateTime, 1000);
+        updateTime();

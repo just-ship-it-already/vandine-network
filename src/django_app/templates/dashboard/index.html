@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Vandine Network Monitor{% endblock %}
+
+{% block content %}
+<h2>Network Overview</h2>
+
+<div class="card">
+    <h3>System Status</h3>
+    <div id="system-status">
+        <p>Loading system status...</p>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Configured Devices</h3>
+    <div id="devices-list">
+        {% for device in devices %}
+        <div class="device-item">
+            <strong>{{ device.name }}</strong> - {{ device.host }}
+            <span class="status" id="status-{{ device.name }}">Checking...</span>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="card">
+    <h3>Real-time Metrics</h3>
+    <div id="metrics-container">
+        <p>Connecting to metrics stream...</p>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Check system health
+fetch('/health/')
+    .then(response => response.json())
+    .then(data => {
+        const statusDiv = document.getElementById('system-status');
+        statusDiv.innerHTML = `
+            <div class="metric">
+                <div class="metric-value ${data.status === 'healthy' ? 'status-online' : 'status-offline'}">
+                    ${data.status.toUpperCase()}
+                </div>
+                <div class="metric-label">System Status</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value ${data.database === 'healthy' ? 'status-online' : 'status-offline'}">
+                    ${data.database.toUpperCase()}
+                </div>
+                <div class="metric-label">Database</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value ${data.redis === 'healthy' ? 'status-online' : 'status-offline'}">
+                    ${data.redis.toUpperCase()}
+                </div>
+                <div class="metric-label">Redis</div>
+            </div>
+        `;
+    })
+    .catch(error => {
+        console.error('Health check failed:', error);
+    });
+
+// WebSocket connection for real-time metrics
+const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+const ws = new WebSocket(`${wsProtocol}//${window.location.host}/ws/metrics/`);
+
+ws.onmessage = function(e) {
+    const data = JSON.parse(e.data);
+    if (data.type === 'metrics_update') {
+        updateMetrics(data.data);
+    }
+};
+
+ws.onopen = function(e) {
+    console.log('WebSocket connected');
+    document.getElementById('metrics-container').innerHTML = '<p>Waiting for metrics...</p>';
+};
+
+ws.onerror = function(e) {
+    console.error('WebSocket error:', e);
+    document.getElementById('metrics-container').innerHTML = '<p>Error connecting to metrics stream</p>';
+};
+
+function updateMetrics(metrics) {
+    const container = document.getElementById('metrics-container');
+    let html = '';
+    
+    for (const [device, data] of Object.entries(metrics)) {
+        if (data.error) {
+            html += `<div class="device-metrics">
+                <h4>${device}</h4>
+                <p class="status-offline">Error: ${data.error}</p>
+            </div>`;
+        } else {
+            html += `<div class="device-metrics">
+                <h4>${device}</h4>
+                <div class="metric">
+                    <div class="metric-value">${data.cpu_percent || 0}%</div>
+                    <div class="metric-label">CPU Usage</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">${data.memory_percent || 0}%</div>
+                    <div class="metric-label">Memory Usage</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">${data.disk_percent || 0}%</div>
+                    <div class="metric-label">Disk Usage</div>
+                </div>
+                ${data.temperature_c ? `
+                    <div class="metric">
+                        <div class="metric-value">${data.temperature_c}°C</div>
+                        <div class="metric-label">Temperature</div>
+                    </div>
+                ` : ''}
+            </div>`;
+        }
+    }
+    
+    container.innerHTML = html || '<p>No metrics available</p>';
+}
+</script>
+{% endblock %}

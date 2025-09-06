@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}Alerts - Vandine Monitor{% endblock %}
+
+{% block content %}
+<h2>System Alerts</h2>
+
+<div class="card">
+    <h3>Active Alerts</h3>
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Device</th>
+                    <th>Alert Type</th>
+                    <th>Severity</th>
+                    <th>Message</th>
+                    <th>Triggered At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alert in alerts %}
+                <tr class="alert-row alert-{{ alert.severity }}">
+                    <td>{{ alert.device.name }}</td>
+                    <td>{{ alert.alert_type }}</td>
+                    <td>
+                        <span class="badge badge-{{ alert.severity }}">
+                            {{ alert.get_severity_display }}
+                        </span>
+                    </td>
+                    <td>{{ alert.message }}</td>
+                    <td>{{ alert.created_at|date:"Y-m-d H:i:s" }}</td>
+                    <td>
+                        <button class="btn btn-sm" onclick="acknowledgeAlert({{ alert.id }})">
+                            Acknowledge
+                        </button>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center">No active alerts</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Alert History</h3>
+    <p>View resolved alerts and system notifications</p>
+    <a href="#" class="btn">View History</a>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function acknowledgeAlert(alertId) {
+    // TODO: Implement alert acknowledgment
+    console.log('Acknowledging alert:', alertId);
+}
+
+// Auto-refresh alerts every 10 seconds
+setInterval(function() {
+    location.reload();
+}, 10000);
+</script>
+{% endblock %}

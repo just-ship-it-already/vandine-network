@@ -1,0 +1,1035 @@
+{% extends 'base_modern.html' %}
+
+{% block title %}Vandine Network Infrastructure - Enterprise SOHO Network{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Hero Section */
+.hero {
+    position: relative;
+    padding: 4rem 0;
+    margin: -2rem -2rem 4rem -2rem;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+    animation: pulse 15s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 0.3; }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: white;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    background: linear-gradient(to right, #fff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero .subtitle {
+    font-size: 1.5rem;
+    color: #94a3b8;
+    margin-bottom: 2rem;
+}
+
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 3rem;
+}
+
+.hero-stat {
+    text-align: center;
+}
+
+.hero-stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #6366f1;
+}
+
+.hero-stat-label {
+    color: #94a3b8;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Stats Cards */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.stat-card {
+    position: relative;
+    padding: 2rem;
+    border-radius: 1rem;
+    background: white;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.stat-icon.primary {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+}
+
+.stat-icon.success {
+    background: linear-gradient(135deg, #10b981, #34d399);
+    color: white;
+}
+
+.stat-icon.info {
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
+    color: white;
+}
+
+.stat-icon.warning {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    color: white;
+}
+
+.stat-card h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 0.5rem;
+}
+
+.stat-card p {
+    color: var(--gray-600);
+    font-weight: 500;
+}
+
+/* Infrastructure Section */
+.infrastructure-grid {
+    display: grid;
+    gap: 2rem;
+}
+
+.infra-layer {
+    padding: 2.5rem;
+    border-radius: 1rem;
+    background: white;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.infra-layer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+    transform: translate(50%, -50%);
+}
+
+.infra-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.infra-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+}
+
+.infra-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gray-900);
+}
+
+.feature-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.feature-tag {
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    background: var(--gray-100);
+    color: var(--gray-700);
+    transition: all 0.2s;
+}
+
+.feature-tag:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Device Cards */
+.devices-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.device-card {
+    padding: 2rem;
+    border-radius: 1rem;
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    border: 1px solid var(--gray-200);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.device-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary);
+}
+
+.device-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: -1;
+}
+
+.device-card:hover::before {
+    opacity: 1;
+}
+
+.device-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 1.5rem;
+}
+
+.device-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--gray-900);
+}
+
+.device-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.device-status.online {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+}
+
+.device-status .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+.device-ip {
+    font-family: 'Courier New', monospace;
+    font-size: 1.125rem;
+    color: var(--gray-600);
+    margin-bottom: 1rem;
+}
+
+.device-specs {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.device-spec {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.device-spec:last-child {
+    border-bottom: none;
+}
+
+.spec-label {
+    color: var(--gray-600);
+    font-size: 0.875rem;
+}
+
+.spec-value {
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+/* Security Features */
+.security-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.security-card {
+    padding: 2.5rem;
+    border-radius: 1rem;
+    background: white;
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.security-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+}
+
+.security-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.03) 0%, transparent 70%);
+    transform: rotate(45deg);
+}
+
+.security-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    font-size: 2rem;
+    box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
+}
+
+.security-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 1rem;
+}
+
+.security-card p {
+    color: var(--gray-600);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.security-metric {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    background: var(--gray-100);
+    color: var(--primary);
+    font-weight: 600;
+    font-family: monospace;
+    display: inline-block;
+}
+
+/* Performance Charts */
+.performance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.chart-card {
+    padding: 2rem;
+    border-radius: 1rem;
+    background: white;
+    box-shadow: var(--shadow-md);
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.chart-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--gray-900);
+}
+
+.chart-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* Tech Stack */
+.tech-stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.tech-category {
+    padding: 2rem;
+    border-radius: 1rem;
+    background: white;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s;
+}
+
+.tech-category:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+}
+
+.tech-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--gray-200);
+}
+
+.tech-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gray-100);
+    color: var(--primary);
+}
+
+.tech-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--gray-900);
+}
+
+.tech-list {
+    list-style: none;
+}
+
+.tech-item {
+    padding: 0.75rem 0;
+    color: var(--gray-700);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.2s;
+}
+
+.tech-item:hover {
+    color: var(--primary);
+    transform: translateX(4px);
+}
+
+.tech-item::before {
+    content: '→';
+    color: var(--primary);
+    font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-stats {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .stats-container,
+    .devices-grid,
+    .security-grid,
+    .performance-grid,
+    .tech-stack-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--gray-900);
+    margin-bottom: 1rem;
+}
+
+.section-subtitle {
+    font-size: 1.25rem;
+    color: var(--gray-600);
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content" data-aos="fade-up">
+        <h1>Vandine Network Infrastructure</h1>
+        <p class="subtitle">Enterprise-Grade SOHO Network Powered by Cloudflare</p>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="hero-stat-value">99.9%</div>
+                <div class="hero-stat-label">Uptime SLA</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-value">&lt;1ms</div>
+                <div class="hero-stat-label">Local Latency</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-value">Zero Trust</div>
+                <div class="hero-stat-label">Security Model</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Key Metrics -->
+<section class="stats-container">
+    <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="stat-icon primary">
+            <span class="material-icons">speed</span>
+        </div>
+        <h3 id="bandwidth-stat">1 Gbps</h3>
+        <p>Network Bandwidth</p>
+    </div>
+    
+    <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="stat-icon success">
+            <span class="material-icons">security</span>
+        </div>
+        <h3>SSL/TLS</h3>
+        <p>End-to-End Encryption</p>
+    </div>
+    
+    <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="stat-icon info">
+            <span class="material-icons">dns</span>
+        </div>
+        <h3>3 Nodes</h3>
+        <p>Active Infrastructure</p>
+    </div>
+    
+    <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
+        <div class="stat-icon warning">
+            <span class="material-icons">shield</span>
+        </div>
+        <h3>24/7</h3>
+        <p>DDoS Protection</p>
+    </div>
+</section>
+
+<!-- Network Architecture -->
+<section id="infrastructure">
+    <div class="section-header" data-aos="fade-up">
+        <h2 class="section-title">Network Architecture</h2>
+        <p class="section-subtitle">Multi-layered security with high-performance infrastructure</p>
+    </div>
+    
+    <div class="infrastructure-grid">
+        <!-- Cloudflare Layer -->
+        <div class="infra-layer" data-aos="fade-up">
+            <div class="infra-header">
+                <div class="infra-icon">
+                    <span class="material-icons">cloud</span>
+                </div>
+                <h3 class="infra-title">Edge Security - Cloudflare</h3>
+            </div>
+            <div class="feature-tags">
+                <span class="feature-tag">DDoS Protection</span>
+                <span class="feature-tag">WAF Rules</span>
+                <span class="feature-tag">Zero Trust Access</span>
+                <span class="feature-tag">Bot Management</span>
+                <span class="feature-tag">SSL/TLS Encryption</span>
+                <span class="feature-tag">Edge Caching</span>
+            </div>
+        </div>
+        
+        <!-- Gateway Layer -->
+        <div class="infra-layer" data-aos="fade-up" data-aos-delay="100">
+            <div class="infra-header">
+                <div class="infra-icon">
+                    <span class="material-icons">router</span>
+                </div>
+                <h3 class="infra-title">Gateway - Synology RT2600ac</h3>
+            </div>
+            <div class="feature-tags">
+                <span class="feature-tag">Dual-WAN Failover</span>
+                <span class="feature-tag">VLAN Segmentation</span>
+                <span class="feature-tag">IDS/IPS</span>
+                <span class="feature-tag">QoS Traffic Shaping</span>
+                <span class="feature-tag">VPN Server</span>
+            </div>
+        </div>
+        
+        <!-- Compute Infrastructure -->
+        <div class="infra-layer" data-aos="fade-up" data-aos-delay="200">
+            <div class="infra-header">
+                <div class="infra-icon">
+                    <span class="material-icons">developer_board</span>
+                </div>
+                <h3 class="infra-title">Compute Infrastructure</h3>
+            </div>
+            
+            <div class="devices-grid">
+                <div class="device-card" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="device-header">
+                        <h4 class="device-name">Pi0 - Ubuntu Server</h4>
+                        <span class="device-status online">
+                            <span class="status-dot"></span>
+                            Online
+                        </span>
+                    </div>
+                    <div class="device-ip">192.168.2.10</div>
+                    <div class="device-specs">
+                        <div class="device-spec">
+                            <span class="spec-label">Processor</span>
+                            <span class="spec-value">ARM Cortex-A72</span>
+                        </div>
+                        <div class="device-spec">
+                            <span class="spec-label">Memory</span>
+                            <span class="spec-value">8GB RAM</span>
+                        </div>
+                        <div class="device-spec">
+                            <span class="spec-label">Storage</span>
+                            <span class="spec-value">64GB NVMe</span>
+                        </div>
+                        <div class="device-spec">
+                            <span class="spec-label">Role</span>
+                            <span class="spec-value">Services Hub</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="device-card" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="device-header">
+                        <h4 class="device-name">Pi1 - Web Server</h4>
+                        <span class="device-status online">
+                            <span class="status-dot"></span>
+                            Online
+                        </span>
+                    </div>
+                    <div class="device-ip">192.168.2.7</div>
+                    <div class="device-specs">
+                        <div class="device-spec">
+                            <span class="spec-label">Processor</span>
+                            <span class="spec-value">ARM Cortex-A72</span>
+                        </div>
+                        <div class="device-spec">
+                            <span class="spec-label">Memory</span>
+                            <span class="spec-value">8GB RAM</span>
+                        </div>
+                        <div class="device-spec">
+                            <span class="spec-label">Storage</span>
+                            <span class="spec-value">128GB SSD</span>
+                        </div>
+                        <div class="device-spec">
+                            <span class="spec-label">Role</span>
+                            <span class="spec-value">HTTPS Host</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="device-card" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="device-header">
+                        <h4 class="device-name">XPS - Development</h4>
+                        <span class="device-status online">
+                            <span class="status-dot"></span>
+                            Online
+                        </span>
+                    </div>
+                    <div class="device-ip">192.168.2.x</div>
+                    <div class="device-specs">
+                        <div class="device-spec">
+                            <span class="spec-label">Processor</span>
+                            <span class="spec-value">Intel Core i7</span>
+                        </div>
+                        <div class="device-spec">
+                            <span class="spec-label">Memory</span>
+                            <span class="spec-value">16GB RAM</span>
+                        </div>
+                        <div class="device-spec">
+                            <span class="spec-label">Platform</span>
+                            <span class="spec-value">WSL2 Ubuntu</span>
+                        </div>
+                        <div class="device-spec">
+                            <span class="spec-label">Role</span>
+                            <span class="spec-value">Dev Environment</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Security Features -->
+<section id="security">
+    <div class="section-header" data-aos="fade-up">
+        <h2 class="section-title">Security Features</h2>
+        <p class="section-subtitle">Enterprise-grade protection for your network</p>
+    </div>
+    
+    <div class="security-grid">
+        <div class="security-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="security-icon">
+                <span class="material-icons">lock</span>
+            </div>
+            <h3>Cloudflare Tunnel</h3>
+            <p>Secure zero-trust access without exposing ports. All traffic encrypted end-to-end through Cloudflare's global network.</p>
+            <div class="security-metric">Tunnel Active</div>
+        </div>
+        
+        <div class="security-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="security-icon">
+                <span class="material-icons">verified_user</span>
+            </div>
+            <h3>SSL/TLS Certificates</h3>
+            <p>Full SSL/TLS encryption with Cloudflare origin certificates and automatic renewal.</p>
+            <div class="security-metric">TLS 1.3</div>
+        </div>
+        
+        <div class="security-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="security-icon">
+                <span class="material-icons">policy</span>
+            </div>
+            <h3>Network Isolation</h3>
+            <p>VLAN segmentation and firewall rules for complete network isolation between services.</p>
+            <div class="security-metric">3 VLANs Active</div>
+        </div>
+        
+        <div class="security-card" data-aos="fade-up" data-aos-delay="400">
+            <div class="security-icon">
+                <span class="material-icons">monitor_heart</span>
+            </div>
+            <h3>24/7 Monitoring</h3>
+            <p>Real-time network monitoring with instant alerts and automated response capabilities.</p>
+            <div class="security-metric">Response &lt; 5s</div>
+        </div>
+    </div>
+</section>
+
+<!-- Performance Metrics -->
+<section id="performance">
+    <div class="section-header" data-aos="fade-up">
+        <h2 class="section-title">Network Performance</h2>
+        <p class="section-subtitle">Real-time monitoring and analytics</p>
+    </div>
+    
+    <div class="performance-grid">
+        <div class="chart-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="chart-header">
+                <h3 class="chart-title">Bandwidth Usage</h3>
+                <div class="chart-value">856 Mbps</div>
+            </div>
+            <canvas id="bandwidthChart"></canvas>
+        </div>
+        
+        <div class="chart-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="chart-header">
+                <h3 class="chart-title">Latency</h3>
+                <div class="chart-value">0.8ms</div>
+            </div>
+            <canvas id="latencyChart"></canvas>
+        </div>
+    </div>
+</section>
+
+{% include 'cloudflare_features.html' %}
+<!-- Technology Stack -->
+<section id="tech-stack">
+    <div class="section-header" data-aos="fade-up">
+        <h2 class="section-title">Technology Stack</h2>
+        <p class="section-subtitle">Modern tools and frameworks powering our infrastructure</p>
+    </div>
+    
+    <div class="tech-stack-grid">
+        <div class="tech-category" data-aos="fade-up" data-aos-delay="100">
+            <div class="tech-header">
+                <div class="tech-icon">
+                    <span class="material-icons">memory</span>
+                </div>
+                <h3 class="tech-title">Infrastructure</h3>
+            </div>
+            <ul class="tech-list">
+                <li class="tech-item">Raspberry Pi 4B (ARM64)</li>
+                <li class="tech-item">Ubuntu Server 24.04 LTS</li>
+                <li class="tech-item">Docker & Kubernetes Ready</li>
+                <li class="tech-item">Nginx Reverse Proxy</li>
+            </ul>
+        </div>
+        
+        <div class="tech-category" data-aos="fade-up" data-aos-delay="200">
+            <div class="tech-header">
+                <div class="tech-icon">
+                    <span class="material-icons">security</span>
+                </div>
+                <h3 class="tech-title">Security</h3>
+            </div>
+            <ul class="tech-list">
+                <li class="tech-item">Cloudflare Zero Trust</li>
+                <li class="tech-item">Cloudflare Tunnel</li>
+                <li class="tech-item">SSL/TLS Certificates</li>
+                <li class="tech-item">UFW Firewall</li>
+            </ul>
+        </div>
+        
+        <div class="tech-category" data-aos="fade-up" data-aos-delay="300">
+            <div class="tech-header">
+                <div class="tech-icon">
+                    <span class="material-icons">analytics</span>
+                </div>
+                <h3 class="tech-title">Monitoring</h3>
+            </div>
+            <ul class="tech-list">
+                <li class="tech-item">Custom Python Stack</li>
+                <li class="tech-item">Django Dashboard</li>
+                <li class="tech-item">Real-time WebSockets</li>
+                <li class="tech-item">Prometheus Metrics</li>
+            </ul>
+        </div>
+        
+        <div class="tech-category" data-aos="fade-up" data-aos-delay="400">
+            <div class="tech-header">
+                <div class="tech-icon">
+                    <span class="material-icons">code</span>
+                </div>
+                <h3 class="tech-title">DevOps</h3>
+            </div>
+            <ul class="tech-list">
+                <li class="tech-item">Git Version Control</li>
+                <li class="tech-item">GitHub Actions CI/CD</li>
+                <li class="tech-item">Automated Deployments</li>
+                <li class="tech-item">Infrastructure as Code</li>
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Animated counter
+function animateValue(obj, start, end, duration) {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        obj.innerHTML = Math.floor(progress * (end - start) + start) + ' Mbps';
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        }
+    };
+    window.requestAnimationFrame(step);
+}
+
+// Animate bandwidth stat
+const bandwidthStat = document.getElementById("bandwidth-stat");
+animateValue(bandwidthStat, 0, 1000, 2000);
+
+// Bandwidth Chart
+const bwCtx = document.getElementById('bandwidthChart').getContext('2d');
+const bandwidthChart = new Chart(bwCtx, {
+    type: 'line',
+    data: {
+        labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'],
+        datasets: [{
+            label: 'Bandwidth',
+            data: [450, 380, 520, 856, 720, 640, 510],
+            borderColor: '#6366f1',
+            backgroundColor: 'rgba(99, 102, 241, 0.1)',
+            tension: 0.4,
+            fill: true
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: {
+                    display: false
+                }
+            },
+            x: {
+                grid: {
+                    display: false
+                }
+            }
+        }
+    }
+});
+
+// Latency Chart
+const latCtx = document.getElementById('latencyChart').getContext('2d');
+const latencyChart = new Chart(latCtx, {
+    type: 'bar',
+    data: {
+        labels: ['Pi0', 'Pi1', 'Router', 'Cloudflare', 'External'],
+        datasets: [{
+            label: 'Latency (ms)',
+            data: [0.5, 0.8, 0.3, 12, 25],
+            backgroundColor: [
+                'rgba(16, 185, 129, 0.8)',
+                'rgba(16, 185, 129, 0.8)',
+                'rgba(16, 185, 129, 0.8)',
+                'rgba(245, 158, 11, 0.8)',
+                'rgba(239, 68, 68, 0.8)'
+            ]
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: {
+                    display: false
+                }
+            },
+            x: {
+                grid: {
+                    display: false
+                }
+            }
+        }
+    }
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+</script>
+{% endblock %}

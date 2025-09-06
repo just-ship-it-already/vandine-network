@@ -1,0 +1,73 @@
+project:
+  name: "Vandine Network Monitor"
+  description: "Comprehensive network monitoring solution with Django, FastAPI, and real-time metrics"
+  version: "1.0.0"
+  
+architecture:
+  backend:
+    - framework: Django
+      purpose: "Main web application, ORM, admin interface"
+    - framework: FastAPI
+      purpose: "High-performance API, WebSocket connections, real-time data"
+    - framework: Celery
+      purpose: "Background tasks, scheduled monitoring jobs"
+  
+  database:
+    - PostgreSQL: "Primary data store"
+    - Redis: "Cache, message broker, session store"
+  
+  monitoring:
+    - Prometheus: "Metrics collection"
+    - Grafana: "Visualization"
+    - Custom Dashboard: "Django-based monitoring interface"
+
+features:
+  - "Real-time system metrics monitoring"
+  - "Network device discovery and scanning"
+  - "SSH device management via Netmiko"
+  - "Cloudflare Tunnel integration"
+  - "Performance testing with iPerf3"
+  - "Alert system with email notifications"
+  - "RESTful API with FastAPI"
+  - "WebSocket support for live updates"
+  - "Docker containerization"
+  - "CI/CD with GitHub Actions"
+
+development_guidelines:
+  code_style: "PEP 8 for Python, clean and simple"
+  naming_conventions:
+    files: "lowercase_with_underscores.py"
+    classes: "PascalCase"
+    functions: "lowercase_with_underscores"
+    constants: "UPPERCASE_WITH_UNDERSCORES"
+  
+  testing:
+    - "Pytest for unit tests"
+    - "Coverage target: 80%"
+    - "Integration tests for API endpoints"
+  
+  documentation:
+    - "Docstrings for all classes and functions"
+    - "README with setup instructions"
+    - "API documentation with FastAPI automatic docs"
+
+deployment:
+  environments:
+    - development: "Docker Compose local"
+    - staging: "Docker Compose on Pi"
+    - production: "Docker with Cloudflare Tunnel"
+  
+  ci_cd:
+    - "GitHub Actions for testing"
+    - "Automated Docker builds"
+    - "Deployment via SSH to Raspberry Pi"
+
+prompting_instructions:
+  - "Always include error handling and logging"
+  - "Use type hints in Python code"
+  - "Follow Django best practices"
+  - "Keep functions small and focused"
+  - "Write comprehensive docstrings"
+  - "Include unit tests with new features"
+  - "Use environment variables for configuration"
+  - "Implement proper security measures"

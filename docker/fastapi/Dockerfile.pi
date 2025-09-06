@@ -1,0 +1,51 @@
+FROM python:3.11-slim
+
+# Install system dependencies for ARM builds
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    build-essential \
+    postgresql-client \
+    libpq-dev \
+    netcat-traditional \
+    libffi-dev \
+    libssl-dev \
+    python3-dev \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set work directory
+WORKDIR /app
+
+# Copy requirements first for better caching
+COPY src/fastapi_app/requirements.txt /app/
+
+# Install Python dependencies with longer timeout for ARM
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir --timeout=300 -r requirements.txt
+
+# Copy project
+COPY src/fastapi_app/ /app/
+
+# Create entrypoint script
+RUN echo '#!/bin/sh\n\
+\n\
+echo "Waiting for postgres..."\n\
+while ! nc -z postgres 5432; do\n\
+  sleep 0.1\n\
+done\n\
+echo "PostgreSQL started"\n\
+\n\
+echo "Waiting for redis..."\n\
+while ! nc -z redis 6379; do\n\
+  sleep 0.1\n\
+done\n\
+echo "Redis started"\n\
+\n\
+exec "$@"' > /entrypoint.sh
+
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+
+EXPOSE 8001
