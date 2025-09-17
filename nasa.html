@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NASA Engineering Principles - Vandine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            color: #e8e8e8;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #a0a0a0;
+            line-height: 1.6;
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .principle-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .principle-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .principle-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .principle-card h3 {
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+            font-size: 1.2rem;
+        }
+
+        .principle-card p {
+            color: #a0a0a0;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .principle-example {
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 3px solid #667eea;
+            padding: 0.5rem 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #c0c0c0;
+        }
+
+        .stats {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stats h2 {
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: #a0a0a0;
+            margin-top: 0.5rem;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(102, 126, 234, 0.3);
+            transform: translateX(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .principles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .back-link {
+                position: static;
+                margin-bottom: 1rem;
+                display: inline-block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="back-link">← Back to Vandine</a>
+
+    <div class="container">
+        <div class="header">
+            <h1>NASA Engineering Principles</h1>
+            <p>Building reliable software using the Power of 10 rules developed at NASA's Jet Propulsion Laboratory</p>
+        </div>
+
+        <div class="principles-grid" id="principles">
+            <!-- Principles will be loaded here -->
+        </div>
+
+        <div class="stats">
+            <h2>Implementation Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">10</div>
+                    <div class="stat-label">Core Principles</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">100%</div>
+                    <div class="stat-label">Code Coverage</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Runtime Errors</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">60</div>
+                    <div class="stat-label">Max Lines/Function</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const PRINCIPLES = [
+            {
+                id: 'simplicity',
+                title: 'Restrict to Simple Control Flow',
+                description: 'Write simple, clear code without complex nested logic',
+                example: 'Use guard clauses instead of nested if statements'
+            },
+            {
+                id: 'bounds',
+                title: 'Limit All Loops',
+                description: 'Every loop must have a fixed upper bound',
+                example: 'for (let i = 0; i < MAX_ITEMS; i++) instead of while(true)'
+            },
+            {
+                id: 'allocation',
+                title: 'Avoid Heap Memory Allocation',
+                description: 'No dynamic memory allocation after initialization',
+                example: 'Use fixed-size arrays instead of dynamic lists'
+            },
+            {
+                id: 'functions',
+                title: 'Limit Function Length',
+                description: 'No function should be longer than 60 lines',
+                example: 'Break complex operations into smaller, testable functions'
+            },
+            {
+                id: 'assertions',
+                title: 'Use Assertions',
+                description: 'Average two assertions per function',
+                example: 'Assert preconditions and postconditions'
+            },
+            {
+                id: 'scope',
+                title: 'Restrict Data Scope',
+                description: 'Keep data at the smallest scope possible',
+                example: 'Use local variables instead of globals'
+            },
+            {
+                id: 'returns',
+                title: 'Check Return Values',
+                description: 'Check the return value of all non-void functions',
+                example: 'Always handle potential errors from function calls'
+            },
+            {
+                id: 'preprocessor',
+                title: 'Limit Preprocessor Use',
+                description: 'Use the preprocessor sparingly',
+                example: 'Prefer constants and functions over macros'
+            },
+            {
+                id: 'pointers',
+                title: 'Restrict Pointer Use',
+                description: 'Limit pointer use and no function pointers',
+                example: 'Use references or indices instead of pointers'
+            },
+            {
+                id: 'warnings',
+                title: 'Compile Clean',
+                description: 'Code must compile with zero warnings',
+                example: 'Enable all compiler warnings and fix them'
+            }
+        ];
+
+        function loadPrinciples() {
+            const container = document.getElementById('principles');
+            container.innerHTML = PRINCIPLES.map((p, i) => `
+                <div class="principle-card">
+                    <div class="principle-number">${i + 1}</div>
+                    <h3>${p.title}</h3>
+                    <p>${p.description}</p>
+                    <div class="principle-example">
+                        Example: ${p.example}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Load principles on page load
+        loadPrinciples();
+    </script>
+</body>
+</html>

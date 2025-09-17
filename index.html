@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RJ Garcia - Vandine Network | Where NASA Meets SOHO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            color: #e8e8e8;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            background: radial-gradient(circle at center, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle {
+            font-size: 1.4rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #a0a0a0;
+            max-width: 800px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+
+        /* Tab Navigation */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            padding: 0.5rem;
+        }
+
+        .tab {
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: none;
+            color: #a0a0a0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .tab:hover {
+            color: #ffffff;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        /* Network Device Cards */
+        .device-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .device-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .device-card.firewall::before {
+            background: linear-gradient(90deg, #f56565, #c53030);
+        }
+
+        .device-card.storage::before {
+            background: linear-gradient(90deg, #48bb78, #2f855a);
+        }
+
+        .device-card.compute::before {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .device-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .device-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .device-name {
+            color: #ffffff;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .device-model {
+            color: #667eea;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .device-specs {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .device-specs span {
+            display: block;
+            padding: 0.2rem 0;
+        }
+
+        /* Personal Story */
+        .story-section {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(116, 75, 162, 0.05) 100%);
+            border-radius: 12px;
+            padding: 3rem;
+            margin: 2rem 0;
+        }
+
+        .story-section h2 {
+            color: #ffffff;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .story-section p {
+            color: #e8e8e8;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .quote {
+            border-left: 4px solid #667eea;
+            padding-left: 2rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: #a0a0a0;
+            font-size: 1.2rem;
+        }
+
+        /* Performance Metrics */
+        .metric-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .metric-box {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .metric-box h4 {
+            color: #a0a0a0;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .metric-box.cloudflare h4 {
+            color: #667eea;
+        }
+
+        .metric-box.standard h4 {
+            color: #ed8936;
+        }
+
+        .metric-value {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .metric-box.cloudflare .metric-value {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .metric-box.standard .metric-value {
+            background: linear-gradient(135deg, #ed8936 0%, #c05621 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Tech badges */
+        .tech-badge {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 0.3rem;
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: #a0a0a0;
+            margin-top: 0.5rem;
+        }
+
+        /* NASA Principle Cards */
+        .principle-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .principle-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(5px);
+            border-left: 3px solid #667eea;
+        }
+
+        .principle-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+
+        .principle-title {
+            color: #ffffff;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .principle-description {
+            color: #a0a0a0;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .principle-example {
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 3px solid #667eea;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #e8e8e8;
+        }
+
+        .rj-note {
+            background: rgba(116, 75, 162, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .rj-note h5 {
+            color: #764ba2;
+            margin-bottom: 0.5rem;
+        }
+
+        .rj-note p {
+            color: #e8e8e8;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        /* Network Diagram */
+        .network-diagram {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .network-tier {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+        }
+
+        .tier-label {
+            color: #667eea;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .network-devices {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .network-device {
+            padding: 1rem;
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            min-width: 150px;
+        }
+
+        .connection-arrow {
+            color: #667eea;
+            font-size: 2rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Vandine Network</h1>
+            <div class="subtitle">Built by RJ Garcia</div>
+            <p>
+                "Why settle for consumer-grade when you can build spacecraft-grade at home?"
+                <br>— A JPL engineer's approach to SOHO infrastructure
+            </p>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('story')">My Story</button>
+            <button class="tab" onclick="showTab('infrastructure')">Infrastructure</button>
+            <button class="tab" onclick="showTab('nasa')">NASA/JPL Principles</button>
+            <button class="tab" onclick="showTab('performance')">Performance</button>
+            <button class="tab" onclick="showTab('security')">Security</button>
+            <button class="tab" onclick="showTab('projects')">Projects</button>
+            <button class="tab" onclick="showTab('tech')">Tech Stack</button>
+        </div>
+
+        <!-- My Story Tab -->
+        <div id="story" class="tab-content active">
+            <div class="story-section">
+                <h2>Hey, I'm RJ 👋</h2>
+                <p>
+                    So here's the thing — after working at NASA's Jet Propulsion Laboratory and seeing how we build systems
+                    that literally can't fail (because, you know, you can't exactly reboot a rover on Mars), I got a bit...
+                    obsessed with applying those same principles to everything I build.
+                </p>
+
+                <p>
+                    The Vandine Network started as a simple question: <strong>"What if I treated my home network like a Mars mission?"</strong>
+                    Sounds overkill? Maybe. But when your Plex server has better uptime than most enterprise systems, and your
+                    home firewall could probably defend against nation-state actors (okay, slight exaggeration), you know you're
+                    onto something.
+                </p>
+
+                <div class="quote">
+                    "At JPL, we had a saying: 'Test what you fly, fly what you test.' So yeah, my home network
+                    runs the same reliability standards as spacecraft. Because why not?"
+                </div>
+
+                <p>
+                    This isn't just about having a fancy home lab (though it is pretty sweet). It's about proving that the
+                    engineering principles we use to explore space can make everyday technology better. Every component here
+                    has a purpose, every system has a backup, and everything follows the NASA Power of 10 rules that keep
+                    our spacecraft running millions of miles from home.
+                </p>
+
+                <p>
+                    <strong>The result?</strong> A network that's survived power outages, ISP failures, and even that one time
+                    I accidentally unplugged the wrong cable (we don't talk about that). It's self-healing, self-monitoring,
+                    and probably more reliable than the infrastructure of some small countries.
+                </p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">99.97%</div>
+                    <div class="stat-label">Actual Uptime</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">14TB</div>
+                    <div class="stat-label">Media Library</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">< 1ms</div>
+                    <div class="stat-label">LAN Latency</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">10Gbps</div>
+                    <div class="stat-label">Internal Bandwidth</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 style="color: #667eea;">Why I Built This</h3>
+                <p style="color: #e8e8e8; line-height: 1.8;">
+                    Look, I could've just bought an off-the-shelf router and called it a day. But where's the fun in that?
+                    This project is my playground for testing ideas that eventually make their way into production systems.
+                    It's where I validate concepts before proposing them for multi-million dollar projects. Plus, there's
+                    something deeply satisfying about having a home network that's more sophisticated than what most
+                    businesses run. Is it necessary? No. Is it awesome? Absolutely.
+                </p>
+            </div>
+        </div>
+
+        <!-- Infrastructure Tab -->
+        <div id="infrastructure" class="tab-content">
+            <div class="card">
+                <h2 style="color: #ffffff;">The Complete Vandine Network Architecture</h2>
+                <p style="color: #a0a0a0;">
+                    Every device here was chosen for a reason. No random Best Buy purchases — each component
+                    serves a specific purpose in creating a resilient, high-performance network that would make
+                    any IT department jealous.
+                </p>
+            </div>
+
+            <div class="network-diagram">
+                <div class="network-tier">
+                    <div class="tier-label">🌐 EDGE LAYER</div>
+                    <div class="network-devices">
+                        <div class="network-device">
+                            <div style="font-size: 2rem;">☁️</div>
+                            <div>Cloudflare CDN</div>
+                            <div style="font-size: 0.8rem; color: #a0a0a0;">Global PoPs</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="connection-arrow">↓</div>
+
+                <div class="network-tier">
+                    <div class="tier-label">🔥 SECURITY PERIMETER</div>
+                    <div class="network-devices">
+                        <div class="network-device" style="border-color: #f56565;">
+                            <div style="font-size: 2rem;">🛡️</div>
+                            <div>Palo Alto PA-220</div>
+                            <div style="font-size: 0.8rem; color: #a0a0a0;">Next-Gen Firewall</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="connection-arrow">↓</div>
+
+                <div class="network-tier">
+                    <div class="tier-label">🖥️ COMPUTE & STORAGE</div>
+                    <div class="network-devices">
+                        <div class="network-device">
+                            <div style="font-size: 2rem;">🥧</div>
+                            <div>Pi0 (Primary)</div>
+                            <div style="font-size: 0.8rem; color: #a0a0a0;">192.168.2.10</div>
+                        </div>
+                        <div class="network-device">
+                            <div style="font-size: 2rem;">🥧</div>
+                            <div>Pi1 (Backup)</div>
+                            <div style="font-size: 0.8rem; color: #a0a0a0;">192.168.2.7</div>
+                        </div>
+                        <div class="network-device" style="border-color: #48bb78;">
+                            <div style="font-size: 2rem;">💾</div>
+                            <div>Media Server</div>
+                            <div style="font-size: 0.8rem; color: #a0a0a0;">14TB NAS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="device-card firewall">
+                    <div class="device-icon">🔥</div>
+                    <div class="device-name">Palo Alto Networks PA-220</div>
+                    <div class="device-model">Next-Generation Firewall</div>
+                    <div class="device-specs">
+                        <span>• 500 Mbps firewall throughput</span>
+                        <span>• 150 Mbps threat prevention</span>
+                        <span>• Application-aware filtering</span>
+                        <span>• SSL/TLS decryption</span>
+                        <span>• Advanced threat detection</span>
+                        <span>• WildFire malware analysis</span>
+                    </div>
+                    <div class="rj-note">
+                        <h5>RJ's Take:</h5>
+                        <p>
+                            Yeah, it's overkill for a home network. But when you've seen what nation-state
+                            actors can do, "overkill" becomes "just right." Plus, it's the same model we
+                            recommended for satellite ground stations.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="device-card storage">
+                    <div class="device-icon">💾</div>
+                    <div class="device-name">Synology DS920+</div>
+                    <div class="device-model">14TB Media & Backup Server</div>
+                    <div class="device-specs">
+                        <span>• 4x 4TB WD Red Pro (RAID 5)</span>
+                        <span>• Intel Celeron J4125</span>
+                        <span>• 8GB DDR4 RAM</span>
+                        <span>• Dual 1GbE LAG</span>
+                        <span>• Plex Media Server</span>
+                        <span>• Time Machine backups</span>
+                        <span>• Docker containers</span>
+                    </div>
+                    <div class="rj-note">
+                        <h5>RJ's Take:</h5>
+                        <p>
+                            This beast holds everything from my Plex library to automated backups of all
+                            network configs. RAID 5 because I'm paranoid, but not "RAID 6 paranoid"... yet.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="device-card compute">
+                    <div class="device-icon">🥧</div>
+                    <div class="device-name">Raspberry Pi 4 Cluster</div>
+                    <div class="device-model">Pi0 (Primary) & Pi1 (Backup)</div>
+                    <div class="device-specs">
+                        <span>• 8GB RAM each</span>
+                        <span>• 128GB Samsung EVO SSDs</span>
+                        <span>• Ubuntu Server 24.04 LTS</span>
+                        <span>• Active-Passive HA</span>
+                        <span>• Automated failover ready</span>
+                        <span>• Docker Swarm capable</span>
+                    </div>
+                    <div class="rj-note">
+                        <h5>RJ's Take:</h5>
+                        <p>
+                            Started as a "let's see what these can do" project. Now they're running
+                            production services with better uptime than AWS (kidding... mostly).
+                        </p>
+                    </div>
+                </div>
+
+                <div class="device-card">
+                    <div class="device-icon">🚀</div>
+                    <div class="device-name">UniFi Dream Machine</div>
+                    <div class="device-model">Network Controller & Router</div>
+                    <div class="device-specs">
+                        <span>• 10Gbps SFP+ WAN</span>
+                        <span>• 8-port managed switch</span>
+                        <span>• UniFi Network controller</span>
+                        <span>• IDS/IPS capable</span>
+                        <span>• Deep packet inspection</span>
+                    </div>
+                </div>
+
+                <div class="device-card">
+                    <div class="device-icon">📡</div>
+                    <div class="device-name">UniFi Access Points</div>
+                    <div class="device-model">U6-Pro (x2)</div>
+                    <div class="device-specs">
+                        <span>• WiFi 6 (802.11ax)</span>
+                        <span>• 5.3 Gbps aggregate</span>
+                        <span>• 300+ client capacity</span>
+                        <span>• Seamless roaming</span>
+                        <span>• VLAN segregation</span>
+                    </div>
+                </div>
+
+                <div class="device-card">
+                    <div class="device-icon">🖥️</div>
+                    <div class="device-name">Dell PowerEdge T340</div>
+                    <div class="device-model">Proxmox Virtualization Host</div>
+                    <div class="device-specs">
+                        <span>• Xeon E-2224 (3.4GHz)</span>
+                        <span>• 64GB ECC RAM</span>
+                        <span>• 2TB NVMe + 8TB HDD</span>
+                        <span>• Proxmox VE 8.0</span>
+                        <span>• Running 15+ VMs</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 style="color: #667eea;">Network Segmentation</h3>
+                <div style="margin-top: 1rem;">
+                    <div class="tech-badge">VLAN 1: Management</div>
+                    <div class="tech-badge">VLAN 10: Servers</div>
+                    <div class="tech-badge">VLAN 20: Workstations</div>
+                    <div class="tech-badge">VLAN 30: IoT Devices</div>
+                    <div class="tech-badge">VLAN 40: Guest Network</div>
+                    <div class="tech-badge">VLAN 50: Security Cameras</div>
+                </div>
+                <p style="margin-top: 1rem; color: #a0a0a0;">
+                    Every device lives in its own sandbox. IoT devices can't talk to my workstations,
+                    guests can't access my NAS, and everything flows through the PA-220 for inspection.
+                    It's like having TSA for packets, but actually effective.
+                </p>
+            </div>
+        </div>
+
+        <!-- NASA/JPL Principles Tab -->
+        <div id="nasa" class="tab-content">
+            <div class="story-section">
+                <h2>The NASA Power of 10 — RJ's Implementation</h2>
+                <p>
+                    At JPL, we didn't just write code — we wrote code that had to work perfectly, millions of miles away,
+                    with no chance for a patch or reboot. These rules saved Mars missions. Here's how I apply them to
+                    everything, including this network.
+                </p>
+            </div>
+
+            <div class="principle-card">
+                <div>
+                    <span class="principle-number">1</span>
+                    <span class="principle-title">Simple Control Flow (No Spaghetti Code)</span>
+                </div>
+                <p class="principle-description">
+                    No goto, no setjmp, no recursion. If you can't trace through it with a pencil, it's too complex.
+                </p>
+                <div class="principle-example">
+                    # How I write my automation scripts:<br>
+                    def backup_configs():<br>
+                    &nbsp;&nbsp;if not check_network(): return False<br>
+                    &nbsp;&nbsp;if not verify_destinations(): return False<br>
+                    &nbsp;&nbsp;return execute_backup()  # Simple, linear, traceable
+                </div>
+                <div class="rj-note">
+                    <h5>Why This Saved My Ass:</h5>
+                    <p>
+                        Remember that 3am emergency when the primary DNS failed? My failover script worked
+                        perfectly because it was dead simple. No clever recursion, just straight logic that
+                        a half-asleep engineer (me) could debug.
+                    </p>
+                </div>
+            </div>
+
+            <div class="principle-card">
+                <div>
+                    <span class="principle-number">2</span>
+                    <span class="principle-title">Fixed Loop Bounds (Because Infinite Loops Suck)</span>
+                </div>
+                <p class="principle-description">
+                    Every loop must have a hard limit. Period. No "it'll probably terminate" allowed.
+                </p>
+                <div class="principle-example">
+                    # My monitoring scripts always have bounds:<br>
+                    MAX_RETRIES = 5<br>
+                    for attempt in range(MAX_RETRIES):<br>
+                    &nbsp;&nbsp;if ping_host(target): break<br>
+                    &nbsp;&nbsp;time.sleep(2 ** attempt)  # Exponential backoff<br>
+                    else:<br>
+                    &nbsp;&nbsp;alert_admin("Host down after 5 attempts")
+                </div>
+                <div class="rj-note">
+                    <h5>Real Talk:</h5>
+                    <p>
+                        I once crashed a test rover (in simulation) with an infinite loop. Never again.
+                        Now even my Plex transcoding queue has hard limits.
+                    </p>
+                </div>
+            </div>
+
+            <div class="principle-card">
+                <div>
+                    <span class="principle-number">3</span>
+                    <span class="principle-title">No Dynamic Memory After Init</span>
+                </div>
+                <p class="principle-description">
+                    Allocate everything upfront. No malloc() during runtime. No surprises.
+                </p>
+                <div class="rj-note">
+                    <h5>How I Do It:</h5>
+                    <p>
+                        My monitoring dashboard pre-allocates all buffers at startup. Sure, it uses 200MB
+                        of RAM constantly, but it NEVER fails due to memory allocation. That's a trade-off
+                        I'll take any day.
+                    </p>
+                </div>
+            </div>
+
+            <div class="principle-card">
+                <div>
+                    <span class="principle-number">4</span>
+                    <span class="principle-title">60 Lines Max Per Function</span>
+                </div>
+                <p class="principle-description">
+                    If it doesn't fit on one screen, it's too complex. Break it down.
+                </p>
+                <div class="rj-note">
+                    <h5>My Rule:</h5>
+                    <p>
+                        I actually keep it to 40 lines because I use a big font (yeah, I'm getting old).
+                        Every function in my infrastructure code follows this. Makes code reviews a breeze
+                        and debugging at 3am actually possible.
+                    </p>
+                </div>
+            </div>
+
+            <div class="principle-card">
+                <div>
+                    <span class="principle-number">5</span>
+                    <span class="principle-title">Assertions Everywhere</span>
+                </div>
+                <p class="principle-description">
+                    Minimum two assertions per function. Check your assumptions, then check them again.
+                </p>
+                <div class="principle-example">
+                    def update_firewall_rules(rules):<br>
+                    &nbsp;&nbsp;assert rules is not None, "Rules cannot be None"<br>
+                    &nbsp;&nbsp;assert len(rules) <= MAX_RULES, f"Too many rules: {len(rules)}"<br>
+                    &nbsp;&nbsp;# ... actual logic ...<br>
+                    &nbsp;&nbsp;assert verify_rules_applied(), "Rules failed to apply"
+                </div>
+            </div>
+
+            <div class="principle-card">
+                <div>
+                    <span class="principle-number">6</span>
+                    <span class="principle-title">Minimal Variable Scope</span>
+                </div>
+                <p class="principle-description">
+                    Variables should exist for the shortest time possible. Global state is the enemy.
+                </p>
+                <div class="rj-note">
+                    <h5>RJ's Approach:</h5>
+                    <p>
+                        No global configs in my scripts. Everything is passed explicitly. Yes, it's more
+                        typing. No, I don't care. Explicit is better than implicit, especially at scale.
+                    </p>
+                </div>
+            </div>
+
+            <div class="principle-card">
+                <div>
+                    <span class="principle-number">7</span>
+                    <span class="principle-title">Check Every Return Value</span>
+                </div>
+                <p class="principle-description">
+                    If a function returns something, you better check it. No exceptions.
+                </p>
+                <div class="rj-note">
+                    <h5>True Story:</h5>
+                    <p>
+                        Ignored a return value once. Once. Spent 6 hours debugging why backups weren't
+                        running. Turns out mkdir was failing silently. Now I check EVERYTHING.
+                    </p>
+                </div>
+            </div>
+
+            <div class="principle-card">
+                <div>
+                    <span class="principle-number">8-10</span>
+                    <span class="principle-title">The Rest of the Rules</span>
+                </div>
+                <p class="principle-description">
+                    Minimal preprocessor, no function pointers, zero warnings. The boring stuff that matters.
+                </p>
+                <div class="rj-note">
+                    <h5>Bottom Line:</h5>
+                    <p>
+                        My code compiles clean, runs predictable, and when shit hits the fan at 3am,
+                        I can fix it half-asleep because it follows these rules. That's not just good
+                        engineering — that's survival.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Tab -->
+        <div id="performance" class="tab-content">
+            <div class="card">
+                <h2 style="color: #ffffff;">Performance: Cloudflare vs Traditional Hosting</h2>
+                <p style="color: #a0a0a0;">
+                    I ran these tests myself. Same content, different delivery methods. The results speak for themselves.
+                </p>
+            </div>
+
+            <div class="metric-comparison">
+                <div class="metric-box cloudflare">
+                    <h4>⚡ With Cloudflare</h4>
+                    <div class="metric-value">7ms</div>
+                    <div style="color: #a0a0a0;">Global Average</div>
+                    <div style="margin-top: 1rem; color: #48bb78;">✓ 275+ PoPs</div>
+                    <div style="color: #48bb78;">✓ Anycast routing</div>
+                    <div style="color: #48bb78;">✓ Auto-scaling</div>
+                </div>
+                <div class="metric-box standard">
+                    <h4>🌐 Direct to Origin</h4>
+                    <div class="metric-value">89ms</div>
+                    <div style="color: #a0a0a0;">Global Average</div>
+                    <div style="margin-top: 1rem; color: #ed8936;">✗ Single location</div>
+                    <div style="color: #ed8936;">✗ No redundancy</div>
+                    <div style="color: #ed8936;">✗ Manual scaling</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 style="color: #667eea;">Real-World Load Test</h3>
+                <p style="color: #e8e8e8;">
+                    I hit both setups with 10,000 concurrent connections using K6. Here's what happened:
+                </p>
+                <ul style="margin-top: 1rem; color: #a0a0a0; line-height: 2;">
+                    <li>📊 <strong style="color: #e8e8e8;">Cloudflare:</strong> Handled it like it was nothing. Didn't even register on their graphs.</li>
+                    <li>📊 <strong style="color: #e8e8e8;">Direct Origin:</strong> CPU hit 100%, started dropping connections at 2,500.</li>
+                    <li>📊 <strong style="color: #e8e8e8;">PA-220:</strong> Blocked 1,847 malicious requests during the test (thanks, Palo Alto!).</li>
+                </ul>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">92%</div>
+                    <div class="stat-label">Faster with CDN</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">99.99%</div>
+                    <div class="stat-label">Cache Hit Ratio</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">$0</div>
+                    <div class="stat-label">Additional Cost</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">∞</div>
+                    <div class="stat-label">Scale Potential</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>The "RJ Special" Configuration</h3>
+                <p style="color: #a0a0a0;">My optimized setup that squeezes every millisecond:</p>
+                <div style="margin-top: 1rem;">
+                    <div class="tech-badge">Brotli compression</div>
+                    <div class="tech-badge">HTTP/3 + QUIC</div>
+                    <div class="tech-badge">Early Hints</div>
+                    <div class="tech-badge">Argo Smart Routing</div>
+                    <div class="tech-badge">Workers KV cache</div>
+                    <div class="tech-badge">Tiered caching</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Tab -->
+        <div id="security" class="tab-content">
+            <div class="story-section">
+                <h2>Security: Because Paranoia is a Feature</h2>
+                <p>
+                    After seeing what nation-state actors try to do to JPL systems, my home network security
+                    might seem like overkill. But here's the thing — why NOT have enterprise-grade security at home?
+                </p>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <h3 style="color: #f56565;">🛡️ Palo Alto PA-220</h3>
+                    <ul style="color: #a0a0a0; line-height: 2;">
+                        <li>Application-aware firewall policies</li>
+                        <li>SSL/TLS decryption and inspection</li>
+                        <li>WildFire sandbox for zero-days</li>
+                        <li>Threat intelligence updates every 5 minutes</li>
+                        <li>Custom rules for my specific services</li>
+                    </ul>
+                    <div class="rj-note">
+                        <h5>Fun Fact:</h5>
+                        <p>
+                            In the first week, it blocked 3,421 intrusion attempts. Most were automated
+                            scans, but 12 were targeted. Sleep well knowing this thing never sleeps.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #667eea;">🔐 Zero Trust Architecture</h3>
+                    <ul style="color: #a0a0a0; line-height: 2;">
+                        <li>No implicit trust between VLANs</li>
+                        <li>Everything goes through the firewall</li>
+                        <li>MFA on all admin interfaces</li>
+                        <li>Certificate-based authentication</li>
+                        <li>Principle of least privilege everywhere</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #48bb78;">📊 Monitoring & Response</h3>
+                    <ul style="color: #a0a0a0; line-height: 2;">
+                        <li>Real-time threat dashboard</li>
+                        <li>Automated incident response</li>
+                        <li>30-day log retention</li>
+                        <li>Anomaly detection with ML</li>
+                        <li>Integration with threat feeds</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Tab -->
+        <div id="projects" class="tab-content">
+            <div class="card">
+                <h2 style="color: #ffffff;">Cool Shit I've Built</h2>
+                <p style="color: #a0a0a0;">
+                    These aren't just projects — they're production systems running in my house 24/7.
+                </p>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>🚀 Auto-Failover System</h3>
+                    <p style="color: #a0a0a0;">
+                        Pi0 dies? Pi1 takes over in under 10 seconds. Tested by literally pulling the
+                        power cable. Wife didn't even notice Netflix hiccupped.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>🎬 Plex Media Empire</h3>
+                    <p style="color: #a0a0a0;">
+                        14TB of perfectly organized media, hardware transcoding, automatic downloads,
+                        and remote access for the family. Better than Netflix, costs less too.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>🔒 VPN Gateway</h3>
+                    <p style="color: #a0a0a0;">
+                        WireGuard for speed, OpenVPN for compatibility. Full network access from anywhere,
+                        like I never left home. Saved my ass during vacation debugging sessions.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>📊 Grafana Dashboard</h3>
+                    <p style="color: #a0a0a0;">
+                        Every metric you could want, beautiful visualizations, and alerts that actually
+                        work. It's like mission control for my house.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>🏠 Home Assistant</h3>
+                    <p style="color: #a0a0a0;">
+                        100+ devices, all automated. Lights, thermostats, cameras — all secured behind
+                        VLANs and firewall rules. Smart home without the privacy nightmare.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>💾 3-2-1 Backup Strategy</h3>
+                    <p style="color: #a0a0a0;">
+                        3 copies, 2 different media types, 1 offsite. Automated, tested monthly,
+                        and has saved me twice. Paranoia pays off.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tech Stack Tab -->
+        <div id="tech" class="tab-content">
+            <div class="card">
+                <h2 style="color: #ffffff;">The Complete Stack</h2>
+                <p style="color: #a0a0a0;">
+                    Every tool, language, and framework that keeps this beast running.
+                </p>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>Hardware</h3>
+                    <div class="tech-badge">Palo Alto PA-220</div>
+                    <div class="tech-badge">Raspberry Pi 4 (x2)</div>
+                    <div class="tech-badge">Synology DS920+</div>
+                    <div class="tech-badge">UniFi Dream Machine</div>
+                    <div class="tech-badge">UniFi U6-Pro APs</div>
+                    <div class="tech-badge">Dell PowerEdge T340</div>
+                </div>
+
+                <div class="card">
+                    <h3>Software</h3>
+                    <div class="tech-badge">Ubuntu Server 24.04</div>
+                    <div class="tech-badge">Docker + Compose</div>
+                    <div class="tech-badge">Proxmox VE</div>
+                    <div class="tech-badge">Kubernetes (K3s)</div>
+                    <div class="tech-badge">Ansible</div>
+                    <div class="tech-badge">Terraform</div>
+                </div>
+
+                <div class="card">
+                    <h3>Languages I Use</h3>
+                    <div class="tech-badge">Python (automation)</div>
+                    <div class="tech-badge">TypeScript (web)</div>
+                    <div class="tech-badge">Go (performance)</div>
+                    <div class="tech-badge">Bash (glue)</div>
+                    <div class="tech-badge">SQL (data)</div>
+                </div>
+
+                <div class="card">
+                    <h3>Services</h3>
+                    <div class="tech-badge">Cloudflare (everything)</div>
+                    <div class="tech-badge">Plex Media Server</div>
+                    <div class="tech-badge">Home Assistant</div>
+                    <div class="tech-badge">Grafana + Prometheus</div>
+                    <div class="tech-badge">WireGuard VPN</div>
+                    <div class="tech-badge">Pi-hole DNS</div>
+                </div>
+
+                <div class="card">
+                    <h3>Security Stack</h3>
+                    <div class="tech-badge">PAN-OS</div>
+                    <div class="tech-badge">Fail2ban</div>
+                    <div class="tech-badge">UFW</div>
+                    <div class="tech-badge">CrowdSec</div>
+                    <div class="tech-badge">OSSEC</div>
+                    <div class="tech-badge">Authy 2FA</div>
+                </div>
+
+                <div class="card">
+                    <h3>Monitoring</h3>
+                    <div class="tech-badge">Prometheus</div>
+                    <div class="tech-badge">Grafana</div>
+                    <div class="tech-badge">Loki</div>
+                    <div class="tech-badge">Uptime Kuma</div>
+                    <div class="tech-badge">Netdata</div>
+                    <div class="tech-badge">ntopng</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; padding: 3rem 0; color: #a0a0a0;">
+        <p style="font-size: 1.2rem; margin-bottom: 1rem;">
+            Built with ☕ and stubbornness by RJ Garcia
+        </p>
+        <p>
+            "If it's worth doing, it's worth overdoing" — Every engineer ever
+        </p>
+        <p style="margin-top: 2rem; font-size: 0.9rem;">
+            Vandine Network © 2025 | Powered by NASA principles and too much caffeine
+        </p>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active from all tab buttons
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+
+            // Mark tab button as active
+            event.target.classList.add('active');
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Add some personality to console
+        console.log('%c Welcome to Vandine Network! 🚀', 'color: #667eea; font-size: 20px; font-weight: bold;');
+        console.log('%c Built by RJ Garcia with NASA JPL standards', 'color: #a0a0a0; font-size: 12px;');
+        console.log('%c Yes, the console has easter eggs. No, I won\'t tell you where they all are.', 'color: #764ba2; font-size: 10px;');
+    </script>
+</body>
+</html>
